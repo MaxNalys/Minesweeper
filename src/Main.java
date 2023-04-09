@@ -1,9 +1,8 @@
-import game.Minesweeper;
 
 public class Main {
 
     public static void main(String[] args) {
-        Minesweeper minesweeper = new Minesweeper();
-        minesweeper.startGame();
+        MineSweeper mineSweeper = new MineSweeper();
+        mineSweeper.startGame();
     }
 }
