@@ -101,19 +101,19 @@ public class MineSweeper {
         int count = 0;
         if (isNorthDirection(x, y)) {
             count++;
-        } else if (isSouthDirection(x, y)) {
+        } if (isSouthDirection(x, y)) {
             count++;
-        } else if (isEastDirection(x, y)) {
+        }  if (isEastDirection(x, y)) {
             count++;
-        } else if (isWestDirection(x, y)) {
+        }  if (isWestDirection(x, y)) {
             count++;
-        } else if (isNorthEastDirection(x, y)) {
+        }  if (isNorthEastDirection(x, y)) {
             count++;
-        } else if (isNorthWestDirection(x, y)) {
+        }  if (isNorthWestDirection(x, y)) {
             count++;
-        } else if (isSouthWestDirection(x, y)) {
+        }  if (isSouthWestDirection(x, y)) {
             count++;
-        } else if (isSouthEastDirection(x, y)) {
+        }  if (isSouthEastDirection(x, y)) {
             count++;
         }
         return count;
