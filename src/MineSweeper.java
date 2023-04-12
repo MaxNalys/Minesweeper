@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
+import java.util.Scanner;
 
 public class MineSweeper {
     private final Board board;
@@ -10,8 +10,59 @@ public class MineSweeper {
     }
 
     public void startGame() {
+        Scanner scanner = new Scanner(System.in);
+        board.initializeBoard();
         generateGame();
+        int x, y;
+        do {
+            PrintBoard.printBoard(board);
+            System.out.println("Enter x: ");
+            x = scanner.nextInt();
+            System.out.println("Enter y: ");
+            y = scanner.nextInt();
+            openCell(x, y);
+            try {
+                if (isLose(x, y)) {
+                    break;
+                }
+            }catch (ArrayIndexOutOfBoundsException ignored) {}
+        } while (!isWin());
+        System.out.println("GAME OVER");
+        openAllCells();
         PrintBoard.printBoard(board);
+    }
+
+    private boolean isWin() {
+        for (int i = 0; i < Board.BOARD_SIZE; i++) {
+            for (int j = 0; j < Board.BOARD_SIZE; j++) {
+                if (board.getBoard()[i][j].isRevealed() && !board.getBoard()[i][j].isBomb()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean isLose(int x, int y) {
+        return board.getBoard()[x][y].isBomb();
+
+    }
+
+    private void openCell(int x, int y) {
+        try {
+            board.getBoard()[x][y].setRevealed(true);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Wrong input");
+        }
+    }
+
+
+    private void openAllCells() {
+        for (int i = 0; i < Board.BOARD_SIZE; i++) {
+            for (int j = 0; j < Board.BOARD_SIZE; j++) {
+                board.getBoard()[i][j].setRevealed(true);
+            }
+        }
     }
 
     private void generateGame() {
@@ -21,18 +72,15 @@ public class MineSweeper {
 
     private void generateBombs() {
         ArrayList<Integer> integerArrayList = new ArrayList<>(16);
-        for (int j = 0; j < 2; j++) {
-            for (int i = 0; i < Board.BOARD_SIZE; i++) {
-                integerArrayList.add(i);
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < Board.BOARD_SIZE; j++) {
+                integerArrayList.add(j);
             }
         }
         Collections.shuffle(integerArrayList);
-        Random random = new Random();
         for (int i = 0; i < 10; i++) {
-            board.getBoard()[integerArrayList.get(0)][integerArrayList.get(1)].setBomb(true);
-            board.getBoard()[integerArrayList.get(0)][integerArrayList.get(1)].setEmpty(false);
-            integerArrayList.remove(0);
-            integerArrayList.remove(1);
+            board.getBoard()[integerArrayList.get(i)][integerArrayList.get(i + 1)].setBomb(true);
+            board.getBoard()[integerArrayList.get(i)][integerArrayList.get(i + 1)].setEmpty(false);
         }
     }
 
@@ -80,35 +128,61 @@ public class MineSweeper {
     }
 
     private boolean isNorthDirection(int x, int y) {
-        return board.getBoard()[x - 1][y].isBomb() && isWithinBounds(x, y);
+        if (isWithinBounds(x - 1, y)) {
+            return board.getBoard()[x - 1][y].isBomb();
+        }
+        return false;
     }
 
     private boolean isSouthDirection(int x, int y) {
-        return board.getBoard()[x + 1][y].isBomb() && isWithinBounds(x, y);
+        if (isWithinBounds(x + 1, y)) {
+            return board.getBoard()[x + 1][y].isBomb();
+        }
+        return false;
     }
 
+
     private boolean isEastDirection(int x, int y) {
-        return board.getBoard()[x][y + 1].isBomb() && isWithinBounds(x, y);
+        if (isWithinBounds(x, y + 1)) {
+            return board.getBoard()[x][y + 1].isBomb();
+        }
+        return false;
     }
 
     private boolean isWestDirection(int x, int y) {
-        return board.getBoard()[x][y - 1].isBomb() && isWithinBounds(x, y);
+        if (isWithinBounds(x, y - 1)) {
+            return board.getBoard()[x][y - 1].isBomb();
+        }
+        return false;
     }
 
+
     private boolean isNorthEastDirection(int x, int y) {
-        return board.getBoard()[x - 1][y + 1].isBomb() && isWithinBounds(x, y);
+        if (isWithinBounds(x - 1, y + 1)) {
+            return board.getBoard()[x - 1][y + 1].isBomb();
+        }
+        return false;
+
     }
 
     private boolean isNorthWestDirection(int x, int y) {
-        return board.getBoard()[x - 1][y - 1].isBomb() && isWithinBounds(x, y);
+        if (isWithinBounds(x - 1, y - 1)) {
+            return board.getBoard()[x - 1][y - 1].isBomb();
+        }
+        return false;
     }
 
     private boolean isSouthEastDirection(int x, int y) {
-        return board.getBoard()[x + 1][y + 1].isBomb() && isWithinBounds(x, y);
+        if (isWithinBounds(x + 1, y + 1)) {
+            return board.getBoard()[x + 1][y + 1].isBomb();
+        }
+        return false;
     }
 
     private boolean isSouthWestDirection(int x, int y) {
-        return board.getBoard()[x + 1][y - 1].isBomb() && isWithinBounds(x, y);
+        if (isWithinBounds(x + 1, y - 1)) {
+            return board.getBoard()[x + 1][y - 1].isBomb();
+        }
+        return false;
     }
-
 }

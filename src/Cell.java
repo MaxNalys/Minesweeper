@@ -25,14 +25,9 @@ public class Cell {
         return counter;
     }
 
-    public boolean isEmpty() {
-        return isEmpty;
-    }
-
     public void setEmpty(boolean empty) {
         isEmpty = empty;
     }
-
 
     public void setRevealed(boolean revealed) {
         isRevealed = revealed;
