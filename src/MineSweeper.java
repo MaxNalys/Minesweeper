@@ -25,7 +25,8 @@ public class MineSweeper {
                 if (isLose(x, y)) {
                     break;
                 }
-            }catch (ArrayIndexOutOfBoundsException ignored) {}
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+            }
         } while (!isWin());
         System.out.println("GAME OVER");
         openAllCells();
@@ -50,12 +51,94 @@ public class MineSweeper {
 
     private void openCell(int x, int y) {
         try {
-            board.getBoard()[x][y].setRevealed(true);
+            if (board.getBoard()[x][y].isEmpty()) {
+                openEmptyCells(x, y);
+            } else {
+                board.getBoard()[x][y].setRevealed(true);
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Wrong input");
         }
     }
 
+    private void openEmptyCells(int x, int y) {
+        int xCoordinate = x;
+        int yCoordinate = y;
+        while (isWithinBounds(xCoordinate, yCoordinate)) {
+            board.getBoard()[xCoordinate][yCoordinate].setRevealed(true);
+            if (board.getBoard()[xCoordinate][yCoordinate].isBombCounter()) {
+                break;
+            }
+            xCoordinate--;
+        }
+        xCoordinate = x;
+        yCoordinate = y;
+        while (isWithinBounds(xCoordinate, yCoordinate)) {
+            board.getBoard()[xCoordinate][yCoordinate].setRevealed(true);
+            if (board.getBoard()[xCoordinate][yCoordinate].isBombCounter()) {
+                break;
+            }
+            xCoordinate++;
+        }
+        xCoordinate = x;
+        yCoordinate = y;
+        while (isWithinBounds(xCoordinate, yCoordinate)) {
+            board.getBoard()[xCoordinate][yCoordinate].setRevealed(true);
+            if (board.getBoard()[xCoordinate][yCoordinate].isBombCounter()) {
+                break;
+            }
+            yCoordinate++;
+        }
+        xCoordinate = x;
+        yCoordinate = y;
+        while (isWithinBounds(xCoordinate, yCoordinate)) {
+            board.getBoard()[xCoordinate][yCoordinate].setRevealed(true);
+            if (board.getBoard()[xCoordinate][yCoordinate].isBombCounter()) {
+                break;
+            }
+            yCoordinate--;
+        }
+        xCoordinate = x;
+        yCoordinate = y;
+        while (isWithinBounds(xCoordinate, yCoordinate)) {
+            board.getBoard()[xCoordinate][yCoordinate].setRevealed(true);
+            if (board.getBoard()[xCoordinate][yCoordinate].isBombCounter()) {
+                break;
+            }
+            xCoordinate--;
+            yCoordinate++;
+        }
+        xCoordinate = x;
+        yCoordinate = y;
+        while (isWithinBounds(xCoordinate, yCoordinate)) {
+            board.getBoard()[xCoordinate][yCoordinate].setRevealed(true);
+            if (board.getBoard()[xCoordinate][yCoordinate].isBombCounter()) {
+                break;
+            }
+            xCoordinate--;
+            yCoordinate--;
+        }
+        xCoordinate = x;
+        yCoordinate = y;
+        while (isWithinBounds(xCoordinate, yCoordinate)) {
+            board.getBoard()[xCoordinate][yCoordinate].setRevealed(true);
+            if (board.getBoard()[xCoordinate][yCoordinate].isBombCounter()) {
+                break;
+            }
+            xCoordinate++;
+            yCoordinate++;
+        }
+        xCoordinate = x;
+        yCoordinate = y;
+        while (isWithinBounds(xCoordinate, yCoordinate)) {
+            board.getBoard()[xCoordinate][yCoordinate].setRevealed(true);
+            if (board.getBoard()[xCoordinate][yCoordinate].isBombCounter()) {
+                break;
+            }
+            xCoordinate++;
+            yCoordinate--;
+        }
+    }
 
     private void openAllCells() {
         for (int i = 0; i < Board.BOARD_SIZE; i++) {
@@ -91,6 +174,7 @@ public class MineSweeper {
                     if (determineCountOfBombsForOneCell(i, j) > 0) {
                         board.getBoard()[i][j].setCounter(determineCountOfBombsForOneCell(i, j));
                         board.getBoard()[i][j].setEmpty(false);
+                        board.getBoard()[i][j].setBombCounter(true);
                     }
                 }
             }
@@ -101,19 +185,26 @@ public class MineSweeper {
         int count = 0;
         if (isNorthDirection(x, y)) {
             count++;
-        } if (isSouthDirection(x, y)) {
+        }
+        if (isSouthDirection(x, y)) {
             count++;
-        }  if (isEastDirection(x, y)) {
+        }
+        if (isEastDirection(x, y)) {
             count++;
-        }  if (isWestDirection(x, y)) {
+        }
+        if (isWestDirection(x, y)) {
             count++;
-        }  if (isNorthEastDirection(x, y)) {
+        }
+        if (isNorthEastDirection(x, y)) {
             count++;
-        }  if (isNorthWestDirection(x, y)) {
+        }
+        if (isNorthWestDirection(x, y)) {
             count++;
-        }  if (isSouthWestDirection(x, y)) {
+        }
+        if (isSouthWestDirection(x, y)) {
             count++;
-        }  if (isSouthEastDirection(x, y)) {
+        }
+        if (isSouthEastDirection(x, y)) {
             count++;
         }
         return count;

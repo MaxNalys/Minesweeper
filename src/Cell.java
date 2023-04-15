@@ -4,9 +4,18 @@ public class Cell {
     private boolean isEmpty;
     private boolean isBomb;
     private int counter;
+    private boolean isBombCounter;
 
     public Cell() {
         this.isEmpty = true;
+    }
+
+    public void setBombCounter(boolean bombCounter) {
+        isBombCounter = bombCounter;
+    }
+
+    public boolean isBombCounter() {
+        return isBombCounter;
     }
 
     public void setBomb(boolean bomb) {
@@ -27,6 +36,10 @@ public class Cell {
 
     public void setEmpty(boolean empty) {
         isEmpty = empty;
+    }
+
+    public boolean isEmpty() {
+        return isEmpty;
     }
 
     public void setRevealed(boolean revealed) {
