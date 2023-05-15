@@ -13,10 +13,11 @@ public class PrintBoard {
             for (int j = 0; j < Board.BOARD_SIZE; j++) {
                 if (!board.getBoard()[i][j].isRevealed()) {
                     System.out.print(WHITE_BOLD_BRIGHT + "■\t" + WHITE_BOLD_BRIGHT);
-                } else if (board.getBoard()[i][j].isBomb()) {
+                } else if (board.getBoard()[i][j].getCellIdentifier().equals(CellIdentifier.BOMB_CELL)) {
                     System.out.print(ANSI_RED + "\uD83D\uDCA3\t" + ANSI_RED);
-                } else if ((board.getBoard()[i][j].getCounter() > 0)) {
-                    System.out.print(WHITE_BOLD_BRIGHT +  board.getBoard()[i][j].getCounter() + "\t" + WHITE_BOLD_BRIGHT);
+                } else if ((board.getBoard()[i][j].getCellIdentifier().equals(CellIdentifier.BOMB_COUNTER))) {
+                    BombCounterCell bombCounterCell = (BombCounterCell) board.getBoard()[i][j];
+                    System.out.print(WHITE_BOLD_BRIGHT + bombCounterCell.getCounter() + "\t" + WHITE_BOLD_BRIGHT);
                 } else {
                     System.out.print(WHITE_BOLD_BRIGHT + "□" + "\t" + WHITE_BOLD_BRIGHT);
                 }
