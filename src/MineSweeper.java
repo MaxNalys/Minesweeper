@@ -66,7 +66,6 @@ public class MineSweeper {
                 break;
             }
             xCoordinate--;
-            openCell(xCoordinate,yCoordinate);
         }
         xCoordinate = x;
         while (isWithinBounds(xCoordinate, yCoordinate)) {
@@ -83,6 +82,9 @@ public class MineSweeper {
                 break;
             }
             yCoordinate++;
+            if (isWithinBounds(xCoordinate, yCoordinate)) {
+                openCell(xCoordinate, yCoordinate);
+            }
         }
         yCoordinate = y;
         while (isWithinBounds(xCoordinate, yCoordinate)) {
@@ -100,6 +102,7 @@ public class MineSweeper {
             }
             xCoordinate--;
             yCoordinate++;
+
         }
         xCoordinate = x;
         yCoordinate = y;
@@ -110,6 +113,7 @@ public class MineSweeper {
             }
             xCoordinate--;
             yCoordinate--;
+
         }
         xCoordinate = x;
         yCoordinate = y;
@@ -120,9 +124,11 @@ public class MineSweeper {
             }
             xCoordinate++;
             yCoordinate++;
+
         }
         xCoordinate = x;
         yCoordinate = y;
+
         while (isWithinBounds(xCoordinate, yCoordinate)) {
             board.getBoard()[xCoordinate][yCoordinate].setRevealed(true);
             if (board.getBoard()[xCoordinate][yCoordinate].getCellIdentifier().equals(CellIdentifier.BOMB_COUNTER)) {
